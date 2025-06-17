@@ -1,7 +1,5 @@
 import { createRoot } from 'react-dom/client';
 import { StrictMode, CSSProperties, useState } from 'react';
-import clsx from 'clsx';
-
 import { Article } from './components/article/Article';
 import { ArticleParamsForm } from './components/article-params-form/ArticleParamsForm';
 import {
@@ -16,23 +14,12 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
-	const [formState, setFormState] =
-		useState<ArticleStateType>(defaultArticleState);
 	const [articleState, setArticleState] =
 		useState<ArticleStateType>(defaultArticleState);
 
-	const handleSubmit = () => {
-		setArticleState(formState);
-	};
-
-	const handleReset = () => {
-		setFormState(defaultArticleState);
-		setArticleState(defaultArticleState);
-	};
-
 	return (
 		<main
-			className={clsx(styles.main)}
+			className={styles.main}
 			style={
 				{
 					'--font-family': articleState.fontFamilyOption.value,
@@ -42,12 +29,7 @@ const App = () => {
 					'--bg-color': articleState.backgroundColor.value,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm
-				formState={formState}
-				setFormState={setFormState}
-				onSubmit={handleSubmit}
-				onReset={handleReset}
-			/>
+			<ArticleParamsForm onApply={setArticleState} />
 			<Article />
 		</main>
 	);
